@@ -4,8 +4,7 @@ import 'package:ticketless_project/screens/loginScreen/loginscreen.dart';
 import 'package:ticketless_project/screens/sharedWidgets/navbar.dart';
 
 class MyCustomBottomNavbar extends StatefulWidget {
-  MyCustomBottomNavbar(
-      {Key? key, required this.initailIndex})
+  MyCustomBottomNavbar({Key? key, required this.initailIndex})
       : super(key: key);
   final initailIndex;
   @override
@@ -39,9 +38,9 @@ class _MyCustomBottomNavbarState extends State<MyCustomBottomNavbar>
           controller: _tabController,
           //tab pages in correspondence to the navbar
           children: [
-           HomeScreen(),
-           LoginScreen(),
-           Container(),
+            HomeScreen(),
+            Container(),
+            Container(),
           ],
         ));
   }

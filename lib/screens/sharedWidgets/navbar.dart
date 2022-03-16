@@ -37,7 +37,7 @@ class CustomNavBarWidget extends StatelessWidget {
             controller: _tabController,
             tabs: <Widget>[
               Tab(
-                icon: Image.asset("assets/icons/home.png", width: 30),
+                icon: Image.asset("assets/icons/home.png", width: 25),
               ),
               Tab(
                 icon: Icon(
@@ -47,7 +47,7 @@ class CustomNavBarWidget extends StatelessWidget {
                 ),
               ),
               Tab(
-                icon: Image.asset("assets/icons/profile.png", width: 30),
+                icon: Image.asset("assets/icons/profile.png", width: 25),
               )
             ],
           ),

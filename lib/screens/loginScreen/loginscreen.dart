@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:ticketless_project/controller/googel_sign_in.dart';
+import 'package:ticketless_project/screens/sharedWidgets/landingpage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -146,7 +150,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     Buttons.Google,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     text: "Sign in with Google",
-                    onPressed: () {},
+                    onPressed: () {
+                        final provider =
+            Provider.of<GoogleSignInProvider>(context, listen: false);
+        provider.googleLogIn().then((value) => Get.offAll(LandingPage()));
+                    },
                   )
                 ],
               ),

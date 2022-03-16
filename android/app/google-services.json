@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "761128824105",
+    "project_id": "ticketless-entry",
+    "storage_bucket": "ticketless-entry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761128824105:android:69b4bac8b12c3e0a49db38",
+        "android_client_info": {
+          "package_name": "com.example.ticketless_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761128824105-heqf71ljp5ck5p3varvdd6qlhh1sel0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADyifw79mSpQzng_0LCbt1sHbCDZGv_Bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761128824105-heqf71ljp5ck5p3varvdd6qlhh1sel0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761128824105:android:eb554e766896216149db38",
+        "android_client_info": {
+          "package_name": "com.shubham.ticketlessentry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761128824105-heqf71ljp5ck5p3varvdd6qlhh1sel0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADyifw79mSpQzng_0LCbt1sHbCDZGv_Bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761128824105-heqf71ljp5ck5p3varvdd6qlhh1sel0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
