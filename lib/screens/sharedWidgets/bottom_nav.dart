@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:ticketless_project/screens/homeScreen/homescreen.dart';
 import 'package:ticketless_project/screens/loginScreen/loginscreen.dart';
 import 'package:ticketless_project/screens/sharedWidgets/navbar.dart';
@@ -22,7 +21,7 @@ class _MyCustomBottomNavbarState extends State<MyCustomBottomNavbar>
   void initState() {
     super.initState();
     _tabController = TabController(
-        length: 4, vsync: this, initialIndex: widget.initailIndex);
+        length: 3, vsync: this, initialIndex: widget.initailIndex);
   }
 
   @override
@@ -43,7 +42,6 @@ class _MyCustomBottomNavbarState extends State<MyCustomBottomNavbar>
            HomeScreen(),
            LoginScreen(),
            Container(),
-           Container()
           ],
         ));
   }

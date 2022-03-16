@@ -47,19 +47,8 @@ class CustomNavBarWidget extends StatelessWidget {
                 ),
               ),
               Tab(
-                icon: Icon(
-                  CupertinoIcons.settings,
-                  color: Colors.blue,
-                  size: 30,
-                ),
-              ),
-              Tab(
-                icon: Icon(
-                  CupertinoIcons.person_fill,
-                  color: Colors.blue,
-                  size: 30,
-                ),
-              ),
+                icon: Image.asset("assets/icons/profile.png", width: 30),
+              )
             ],
           ),
         ),
