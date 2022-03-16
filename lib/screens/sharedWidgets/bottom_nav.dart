@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ticketless_project/screens/homeScreen/homescreen.dart';
+import 'package:ticketless_project/screens/homeScreen/widgets/qr_scanner.dart';
 import 'package:ticketless_project/screens/loginScreen/loginscreen.dart';
 import 'package:ticketless_project/screens/sharedWidgets/navbar.dart';
 
@@ -38,8 +39,8 @@ class _MyCustomBottomNavbarState extends State<MyCustomBottomNavbar>
           controller: _tabController,
           //tab pages in correspondence to the navbar
           children: [
+            QrScanner(),
             HomeScreen(),
-            Container(),
             Container(),
           ],
         ));

@@ -36,15 +36,14 @@ class CustomNavBarWidget extends StatelessWidget {
             //inner padding for the icons of the navbar
             controller: _tabController,
             tabs: <Widget>[
+              
               Tab(
-                icon: Image.asset("assets/icons/home.png", width: 25),
+                icon:Tab(
+                icon: Image.asset("assets/icons/scan.png", width: 25),
+              ),
               ),
               Tab(
-                icon: Icon(
-                  CupertinoIcons.squares_below_rectangle,
-                  color: Colors.blue,
-                  size: 30,
-                ),
+                icon: Image.asset("assets/icons/home.png", width: 25),
               ),
               Tab(
                 icon: Image.asset("assets/icons/profile.png", width: 25),

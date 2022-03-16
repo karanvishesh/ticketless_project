@@ -3,9 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:ticketless_project/controller/googel_sign_in.dart';
 import 'package:ticketless_project/model/monument.dart';
 import 'package:ticketless_project/screens/homeScreen/widgets/monument_display_widget.dart';
 import 'package:ticketless_project/screens/homeScreen/widgets/qr_scanner.dart';
+import 'package:ticketless_project/screens/homeScreen/widgets/search_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -35,81 +38,56 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                   Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => QrScanner());
+                  IconButton(
+                    onPressed: () {
+                      final provider = Provider.of<GoogleSignInProvider>(
+                          context,
+                          listen: false);
+                      provider.GoogleLogOut();
                     },
-                    child: Image.asset(
-                      "assets/icons/scanner.png",
+                    icon: Image.asset(
+                      "assets/icons/logout.png",
                       width: 30,
                     ),
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 12,
               ),
               Text(
-                "Explore the\nbeauty of India",
-                style: TextStyle(fontSize: 33, fontWeight: FontWeight.w600),
+                "Explore the\nbeauty of India...",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 20,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        isDense: true,
-                        focusColor: Colors.white,
-                        hoverColor: Colors.white,
-                        filled: true,
-                        fillColor: Colors.white,
-                        prefixIcon: Icon(
-                          CupertinoIcons.search,
-                          color: Colors.black45,
-                          size: 25,
-                        ),
-                        hintText: "Search monuments",
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 1.0),
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 1.0),
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              SearchBar(),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Nearby Monuments",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
               Container(
-                height: 380,
+                height: 365,
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: StreamBuilder<QuerySnapshot>(
                     stream: _monumentStream,
                     builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                      //implement error screen
-                      print('Something went Wrong');
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
+                      if (snapshot.hasError) {
+                        //implement error screen
+                        print('Something went Wrong');
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
                       return ListView.builder(
                         itemCount: snapshot.data!.size,
                         scrollDirection: Axis.horizontal,
@@ -124,7 +102,8 @@ class HomeScreen extends StatelessWidget {
                             monument: Monument(
                                 name: monumentList[index]["name"],
                                 id: monumentList[index]["id"],
-                                imageUrl: monumentList[index]["imgUrl"].toString(),
+                                imageUrl:
+                                    monumentList[index]["imgUrl"].toString(),
                                 price: monumentList[index]["price"],
                                 location: monumentList[index]["location"],
                                 desc: monumentList[index]["desc"],

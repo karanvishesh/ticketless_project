@@ -45,6 +45,9 @@ dependencies:
   google_sign_in:
   provider: ^6.0.1
   flutter_signin_button: ^2.0.0
+  ticket_widget: ^0.0.1
+  intl: ^0.17.0
+  google_fonts: ^2.3.1
 
 dev_dependencies:
   flutter_test:

@@ -49,7 +49,7 @@ class MonumentDisplayWidget extends StatelessWidget {
                       monument.name,
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
@@ -59,7 +59,7 @@ class MonumentDisplayWidget extends StatelessWidget {
                       monument.location,
                       style: TextStyle(
                           color: Colors.black54,
-                          fontSize: 15,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold),
                     ),
                   ],

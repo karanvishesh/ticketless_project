@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                         final provider =
             Provider.of<GoogleSignInProvider>(context, listen: false);
-        provider.googleLogIn().then((value) => Get.offAll(LandingPage()));
+           provider.googleLogIn().then((value) => Get.offAll(LandingPage()));
                     },
                   )
                 ],

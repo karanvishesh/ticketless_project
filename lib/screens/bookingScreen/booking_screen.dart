@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ticketless_project/model/monument.dart';
+import 'package:ticketless_project/screens/BookedTicketScreen/booked_ticket_screen.dart';
 import 'package:ticketless_project/screens/bookingScreen/item_counter.dart';
+import 'package:ticketless_project/screens/monumentDetailScreen/monument_detail_screen.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({Key? key, required this.monument}) : super(key: key);
@@ -12,16 +17,12 @@ class BookingScreen extends StatefulWidget {
 
 class _BookingScreenState extends State<BookingScreen> {
   final _formKey = GlobalKey<FormState>();
-
-  bool isNonveg = false;
-  String item_name = "";
-  String item_price = "";
-  String item_desc = "";
-  String time_slot = " ";
-  String price = "";
-  String menu_item_category = "";
+  String name = "";
+  String time_slot = "";
+  final no_of_adults = 2;
+  final no_of_children = 3;
   bool isimagepicked = false;
-  DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime.now().add(Duration(days: 1));
   final List time_slots = [
     "09:00 - 11:00",
     "11:00 - 13:00",
@@ -50,6 +51,42 @@ class _BookingScreenState extends State<BookingScreen> {
     }
   }
 
+  _bookTicket() {
+    CollectionReference ticketRef =
+        FirebaseFirestore.instance.collection('bookedTickets');
+    ticketRef.add({
+      'bookedBy': name,
+      'monument': widget.monument.name,
+      'noOfAdults': no_of_adults,
+      'noOfChildren': no_of_children,
+      'bookingDate': _selectedDate,
+      'timeSlot': time_slot,
+      'price': (widget.monument.price * 3) + (widget.monument.price / 2 * 1),
+    }).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Ticket Booked Successfully"),
+        ),
+      );
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'bookedTickets': FieldValue.arrayUnion([value.id])
+      });
+      Get.to(BookedTicket(
+        monument_name: widget.monument.name,
+        booked_by: name,
+        time_slot: time_slot,
+        no_of_adults: no_of_adults,
+        no_of_children: no_of_children,
+        price: widget.monument.price,
+        booking_date: DateTime.now(),
+        ticket_id: value.id,
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +97,13 @@ class _BookingScreenState extends State<BookingScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ListTile(
-              leading: BackButton(),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Get.offAll(
+                      () => MonumentDetailScreen(monument: widget.monument));
+                },
+              ),
               title: Text(
                 "Add Booking Information",
                 // style: Responsive.title1Style,
@@ -71,14 +114,20 @@ class _BookingScreenState extends State<BookingScreen> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        widget.monument.name,
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
                       SizedBox(
                         height: 30,
                       ),
                       TextFormField(
                         onChanged: (val) {
                           setState(() {
-                            item_name = val;
+                            name = val;
                           });
                         },
                         decoration: InputDecoration(
@@ -109,7 +158,20 @@ class _BookingScreenState extends State<BookingScreen> {
                       Row(
                         children: [
                           Text(
-                            'Number of People :',
+                            'Number of Adults :',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          Spacer(),
+                          ItemCounter(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Number of Children :',
                             style: TextStyle(fontSize: 17),
                           ),
                           Spacer(),
@@ -131,51 +193,72 @@ class _BookingScreenState extends State<BookingScreen> {
                                 color: Colors.blue),
                           ),
                           Expanded(
-                            child: DropdownButtonFormField(
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please Select Preparation Time';
-                                }
-                                return null;
-                              },
-                              focusColor: Colors.blue,
+                            child: TextField(
+                              enabled: false,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.black, width: 2.0),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.red, width: 2.0),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                fillColor: Colors.red,
+                                labelText: DateFormat('dd-MM-yyyy')
+                                    .format(_selectedDate),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 20),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Colors.blue, width: 2.0),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 22, horizontal: 10),
-                                labelText: "Choose Preferred time slot",
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
                               ),
-                              items: time_slots
-                                  .map((object) => DropdownMenuItem(
-                                      child: Text(object.toString()),
-                                      value: object))
-                                  .toList(),
-                              onChanged: (val) {
-                                setState(() {
-                                  time_slot = val.toString();
-                                });
-                              },
                             ),
-                          ),
+                          )
                         ],
                       ),
                       SizedBox(
-                        height: 300,
+                        height: 35,
+                      ),
+                      DropdownButtonFormField(
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please Select Preferred Time';
+                          }
+                          return null;
+                        },
+                        focusColor: Colors.blue,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          fillColor: Colors.red,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.blue, width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 22, horizontal: 10),
+                          labelText: "Choose Preferred time slot",
+                        ),
+                        items: time_slots
+                            .map((object) => DropdownMenuItem(
+                                child: Text(object.toString()), value: object))
+                            .toList(),
+                        onChanged: (val) {
+                          setState(() {
+                            time_slot = val.toString();
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: 110,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -209,7 +292,11 @@ class _BookingScreenState extends State<BookingScreen> {
                             ],
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                _bookTicket();
+                              }
+                            },
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 60, vertical: 20),

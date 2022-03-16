@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ticketless_project/screens/loginScreen/loginscreen.dart';
 import 'package:ticketless_project/screens/sharedWidgets/bottom_nav.dart';
+
 class LandingPage extends StatefulWidget {
   const LandingPage({
     Key? key,
@@ -22,7 +24,27 @@ class _LandingPageState extends State<LandingPage> {
             return const Center(
                 child: CircularProgressIndicator(color: Colors.blue));
           } else if (snapshot.hasData) {
-            return MyCustomBottomNavbar(initailIndex: 0);
+            var _userRef = FirebaseFirestore.instance
+                .collection('users')
+                .doc(snapshot.data!.uid);
+            _userRef.get().then((value) {
+              if (!value.exists) {
+                _userRef.set({
+                  'name': snapshot.data!.displayName,
+                  'email': snapshot.data!.email,
+                  'id': snapshot.data!.uid,
+                });
+              }
+            });
+
+            // update(
+            //   {
+            //     'name' : snapshot.data!.displayName,
+            //     'id' : snapshot.data!.uid,
+            //     'email' : snapshot.data!.email,
+            //   }
+            // );
+            return MyCustomBottomNavbar(initailIndex: 1);
           } else if (snapshot.hasError) {
             //implement error screen
             print("error");
