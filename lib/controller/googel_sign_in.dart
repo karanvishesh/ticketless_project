@@ -18,6 +18,7 @@ class GoogleSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ignore: non_constant_identifier_names
   Future GoogleLogOut() async {
     final _googelSignIn = GoogleSignIn();
     await _googelSignIn.signOut();

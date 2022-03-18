@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:ticketless_project/controller/googel_sign_in.dart';
 import 'package:ticketless_project/model/monument.dart';
 import 'package:ticketless_project/screens/homeScreen/widgets/monument_display_widget.dart';
-import 'package:ticketless_project/screens/homeScreen/widgets/qr_scanner.dart';
 import 'package:ticketless_project/screens/homeScreen/widgets/search_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,14 +27,14 @@ class HomeScreen extends StatelessWidget {
                     radius: 25,
                     backgroundImage: NetworkImage(user!.photoURL.toString()),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Text(
                     "Hey ${user!.displayName}!",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
                     onPressed: () {
                       final provider = Provider.of<GoogleSignInProvider>(
@@ -52,30 +49,30 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
-              Text(
+              const Text(
                 "Explore the\nbeauty of India...",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              SearchBar(),
-              SizedBox(
+              const SearchBar(),
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Nearby Monuments",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
                 height: 365,
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: StreamBuilder<QuerySnapshot>(
                     stream: _monumentStream,
                     builder: (context, snapshot) {
@@ -84,8 +81,8 @@ class HomeScreen extends StatelessWidget {
                         print('Something went Wrong');
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
+                        return const Center(
+                          child: const CircularProgressIndicator(color: Colors.blue,),
                         );
                       }
                       return ListView.builder(
@@ -103,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                                 name: monumentList[index]["name"],
                                 id: monumentList[index]["id"],
                                 imageUrl:
-                                    monumentList[index]["imgUrl"].toString(),
+                                    monumentList[index]["imgUrl"][0].toString(),
                                 price: monumentList[index]["price"],
                                 location: monumentList[index]["location"],
                                 desc: monumentList[index]["desc"],

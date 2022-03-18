@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ticketless_project/controller/count_controller.dart';
 
-class ItemCounter extends StatefulWidget {
+class AdultItemCounter extends StatefulWidget {
   @override
-  _ItemCounterState createState() => _ItemCounterState();
+  _AdultItemCounterState createState() => _AdultItemCounterState();
 }
 
-class _ItemCounterState extends State<ItemCounter> {
-  int numOfItems = 1;
+class _AdultItemCounterState extends State<AdultItemCounter> {
+
+  final countState = Get.put(CountController());
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -14,27 +17,26 @@ class _ItemCounterState extends State<ItemCounter> {
         buildOutlineButton(
           icon: Icons.remove,
           press: () {
-            if (numOfItems > 1) {
-              setState(() {
-                numOfItems--;
-              });
+           if (countState.adult_count > 0) {
+                countState.decrementAdult();
             }
           },
         ),
-        Padding(
+       Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            // if our item is less  then 10 then  it shows 01 02 like that
-            numOfItems.toString().padLeft(2, "0"),
-            style: Theme.of(context).textTheme.headline6,
+          child: Obx(()=>
+            Text(
+              // if our item is less  then 10 then  it shows 01 02 like that
+             countState.adult_count.toString().padLeft(2, "0"),
+              style: Theme.of(context).textTheme.headline6,
+            ),
           ),
         ),
         buildOutlineButton(
             icon: Icons.add,
             press: () {
-              setState(() {
-                numOfItems++;
-              });
+                  countState.incrementAdult();
+          
             }),
       ],
     );

@@ -48,6 +48,7 @@ dependencies:
   ticket_widget: ^0.0.1
   intl: ^0.17.0
   google_fonts: ^2.3.1
+  pay: ^1.0.8
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter:
   assets:
     - assets/logo/
     - assets/icons/
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

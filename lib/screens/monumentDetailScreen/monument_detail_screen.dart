@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ticketless_project/model/monument.dart';
-import 'package:ticketless_project/screens/bookingScreen/booking_screen.dart';
 import 'package:ticketless_project/screens/monumentDetailScreen/widgets/bottom_row.dart';
 import 'package:ticketless_project/screens/monumentDetailScreen/widgets/top_image_card.dart';
-import 'package:ticketless_project/screens/sharedWidgets/landingpage.dart';
 
 class MonumentDetailScreen extends StatelessWidget {
   const MonumentDetailScreen({Key? key, required this.monument})

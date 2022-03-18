@@ -4,22 +4,23 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 import 'package:ticketless_project/screens/BookedTicketScreen/widgets/ticket_detail_widget.dart';
 
-class BookedTicket extends StatelessWidget {
-  const BookedTicket(
+class BookedTicketScreen extends StatelessWidget {
+  BookedTicketScreen(
       {Key? key,
       required this.booked_by,
       required this.no_of_adults,
       required this.no_of_children,
-      required this.booking_date,
       required this.time_slot,
       required this.price,
+      // ignore: non_constant_identifier_names
       required this.monument_name,
+      required this.visiting_date,
       required this.ticket_id})
       : super(key: key);
   final String booked_by;
   final int no_of_adults;
   final int no_of_children;
-  final DateTime booking_date;
+  final DateTime visiting_date;
   final String time_slot;
   final int price;
   final String monument_name;
@@ -50,17 +51,17 @@ class BookedTicket extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30.0),
                             border: Border.all(width: 1.0, color: Colors.green),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               'Booked',
                               style: TextStyle(color: Colors.green),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 160,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.share,
                           size: 25,
                         )
@@ -72,7 +73,7 @@ class BookedTicket extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Text(
                     monument_name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold),
@@ -85,7 +86,7 @@ class BookedTicket extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: ticketDetailsWidget('Booked by', booked_by,
-                            'Date', DateFormat('d-MM-y').format(booking_date)),
+                            'Date', DateFormat('d-MM-y').format(visiting_date)),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0, right: 0),
@@ -103,9 +104,8 @@ class BookedTicket extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 80.0, left: 30.0, right: 30.0),
+                const Padding(
+                  padding: EdgeInsets.only(top: 80.0, left: 30.0, right: 30.0),
                 ),
                 Center(
                   child: QrImage(
@@ -114,13 +114,13 @@ class BookedTicket extends StatelessWidget {
                     version: QrVersions.auto,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Center(
                   child: Text(
                     ticket_id,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),

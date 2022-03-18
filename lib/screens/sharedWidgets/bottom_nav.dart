@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ticketless_project/screens/homeScreen/homescreen.dart';
-import 'package:ticketless_project/screens/homeScreen/widgets/qr_scanner.dart';
+import 'package:ticketless_project/screens/qrScannerScreen/qr_scanner_screen.dart';
 import 'package:ticketless_project/screens/loginScreen/loginscreen.dart';
 import 'package:ticketless_project/screens/sharedWidgets/navbar.dart';
+import 'package:ticketless_project/screens/ticketHistoryScreen/ticket_history.dart';
 
 class MyCustomBottomNavbar extends StatefulWidget {
   MyCustomBottomNavbar({Key? key, required this.initailIndex})
@@ -41,7 +42,7 @@ class _MyCustomBottomNavbarState extends State<MyCustomBottomNavbar>
           children: [
             QrScanner(),
             HomeScreen(),
-            Container(),
+            TicketHistory()
           ],
         ));
   }
