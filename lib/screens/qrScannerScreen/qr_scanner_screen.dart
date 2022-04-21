@@ -1,8 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:ticketless_project/model/monument.dart';
+import 'package:ticketless_project/screens/bookingScreen/booking_screen.dart';
+import 'package:ticketless_project/screens/bookingScreen/booking_screen_via_qr.dart';
+import 'package:ticketless_project/screens/sharedWidgets/landingpage.dart';
 
 class QrScanner extends StatefulWidget {
   QrScanner({Key? key}) : super(key: key);
@@ -23,6 +28,37 @@ class QrScannerState extends State<QrScanner> {
       controller!.pauseCamera();
     }
     controller!.resumeCamera();
+  }
+
+   fetch_monument(String id) async {
+    var doc = FirebaseFirestore.instance.collection('monuments').doc(id);
+    var document = await doc.get();
+    if (!document.exists) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Invalid QR Code')));
+      Get.to(LandingPage());
+    } else {
+      doc.get().then((value) {
+        print(
+          value.data()!["price"],
+        );
+        print(
+          value.data()!["name"],
+        );
+                ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Ticket Scanned Successfully")));
+        Get.to(BookingScreenViaQr(
+            monument: Monument(
+                id: value.id,
+                imageUrl: value.data()!["imgUrl"],
+                price: value.data()!["price"],
+                location: value.data()!["location"],
+                stars: value.data()!["stars"],
+                desc: value.data()!["desc"],
+                name: value.data()!["name"],
+                timeSlot: value.data()!["time"])));
+      });
+    }
   }
 
   @override
@@ -58,11 +94,16 @@ class QrScannerState extends State<QrScanner> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Scanning done")));
-        print(scanData.code);
         scanData.code != null ? controller.stopCamera() : null;
-        print(result!.code.toString());
+        if(result!.code.toString().length != 20){
+               ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Invalid QR Code')));
+      Get.offAll(LandingPage());
+        }
+        else{
+
+        fetch_monument(result!.code.toString());
+        }
       });
     });
   }

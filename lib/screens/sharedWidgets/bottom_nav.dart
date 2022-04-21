@@ -3,7 +3,7 @@ import 'package:ticketless_project/screens/homeScreen/homescreen.dart';
 import 'package:ticketless_project/screens/qrScannerScreen/qr_scanner_screen.dart';
 import 'package:ticketless_project/screens/loginScreen/loginscreen.dart';
 import 'package:ticketless_project/screens/sharedWidgets/navbar.dart';
-import 'package:ticketless_project/screens/ticketHistoryScreen/ticket_history.dart';
+import 'package:ticketless_project/screens/ticketHistoryScreen/upcoming_bookings.dart';
 
 class MyCustomBottomNavbar extends StatefulWidget {
   MyCustomBottomNavbar({Key? key, required this.initailIndex})

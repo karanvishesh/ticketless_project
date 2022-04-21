@@ -8,7 +8,6 @@ class AdultItemCounter extends StatefulWidget {
 }
 
 class _AdultItemCounterState extends State<AdultItemCounter> {
-
   final countState = Get.put(CountController());
   @override
   Widget build(BuildContext context) {
@@ -17,17 +16,17 @@ class _AdultItemCounterState extends State<AdultItemCounter> {
         buildOutlineButton(
           icon: Icons.remove,
           press: () {
-           if (countState.adult_count > 0) {
-                countState.decrementAdult();
+            if (countState.adult_count > 1) {
+              countState.decrementAdult();
             }
           },
         ),
-       Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Obx(()=>
-            Text(
+          child: Obx(
+            () => Text(
               // if our item is less  then 10 then  it shows 01 02 like that
-             countState.adult_count.toString().padLeft(2, "0"),
+              countState.adult_count.toString().padLeft(2, "0"),
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
@@ -35,8 +34,7 @@ class _AdultItemCounterState extends State<AdultItemCounter> {
         buildOutlineButton(
             icon: Icons.add,
             press: () {
-                  countState.incrementAdult();
-          
+              countState.incrementAdult();
             }),
       ],
     );

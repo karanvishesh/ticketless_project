@@ -14,7 +14,7 @@ class BottomRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 18.0),
+      padding: const EdgeInsets.symmetric(vertical: 9.0, horizontal: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,7 +29,7 @@ class BottomRow extends StatelessWidget {
                 const TextSpan(
                   text: "₹",
                   style: const TextStyle(
-                    fontSize: 30,
+                    fontSize: 27,
                     color: Colors.green,
                     fontWeight: FontWeight.w500,
                   ),
@@ -37,7 +37,7 @@ class BottomRow extends StatelessWidget {
                 TextSpan(
                   text: monument.price.toString(),
                   style: const TextStyle(
-                    fontSize: 27,
+                    fontSize: 24,
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
                   ),

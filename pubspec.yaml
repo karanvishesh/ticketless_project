@@ -49,6 +49,9 @@ dependencies:
   intl: ^0.17.0
   google_fonts: ^2.3.1
   pay: ^1.0.8
+  carousel_pro: 
+  cached_network_image: ^3.2.0
+ 
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +63,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+  flutter_native_splash: ^2.1.1
+
+flutter_native_splash:
+    background_image: assets/logo/taj_mahal.png
+    timeout_in_milliseconds: 4000
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

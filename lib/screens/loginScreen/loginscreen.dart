@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Image.asset(
                     "assets/logo/logo.gif",
-                    height: 250,
+                    height: 220,
                   ),
                   SizedBox(
                     height: 10,
@@ -146,14 +146,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 10,
                   ),
+                  Text("Or"),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        splashColor: Colors.blue,
+                        minWidth: double.infinity,
+                        height: 55,
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            // Get.to(AddMenuItem());
+                            print(email);
+                            print(pass);
+                          }
+                        },
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Colors.blue),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   SignInButton(
                     Buttons.Google,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    elevation: 5,
+                    padding: EdgeInsets.symmetric(horizontal: 55, vertical: 10),
                     text: "Sign in with Google",
                     onPressed: () {
-                        final provider =
-            Provider.of<GoogleSignInProvider>(context, listen: false);
-           provider.googleLogIn().then((value) => Get.offAll(LandingPage()));
+                      final provider = Provider.of<GoogleSignInProvider>(
+                          context,
+                          listen: false);
+                      provider
+                          .googleLogIn()
+                          .then((value) => Get.offAll(LandingPage()));
                     },
                   )
                 ],

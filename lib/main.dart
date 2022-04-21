@@ -2,9 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
 import 'package:ticketless_project/controller/googel_sign_in.dart';
+import 'package:ticketless_project/screens/sharedWidgets/bottom_nav.dart';
 import 'package:ticketless_project/screens/sharedWidgets/landingpage.dart';
 
 void main() async {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
                     .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
               ),
             ),
-            home: LandingPage(),
+            home: LandingPage()
           );
         });
   }

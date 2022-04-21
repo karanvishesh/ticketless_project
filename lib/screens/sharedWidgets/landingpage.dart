@@ -24,6 +24,7 @@ class _LandingPageState extends State<LandingPage> {
             return const Center(
                 child: CircularProgressIndicator(color: Colors.blue));
           } else if (snapshot.hasData) {
+            print("has data");
             var _userRef = FirebaseFirestore.instance
                 .collection('users')
                 .doc(snapshot.data!.uid);
@@ -36,14 +37,6 @@ class _LandingPageState extends State<LandingPage> {
                 });
               }
             });
-
-            // update(
-            //   {
-            //     'name' : snapshot.data!.displayName,
-            //     'id' : snapshot.data!.uid,
-            //     'email' : snapshot.data!.email,
-            //   }
-            // );
             return MyCustomBottomNavbar(initailIndex: 1);
           } else if (snapshot.hasError) {
             //implement error screen

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketless_project/model/monument.dart';
@@ -9,6 +10,21 @@ class MonumentDisplayWidget extends StatelessWidget {
     required this.monument,
   }) : super(key: key);
   final Monument monument;
+  List<Widget> _createStars() {
+    List<Widget> stars = [];
+    for (int i = 0; i < monument.stars; i++) {
+      stars.add(
+        Padding(
+          padding: const EdgeInsets.only(left: 2.0),
+          child: Image.asset(
+            "assets/icons/star.png",
+            width: 15,
+          ),
+        ),
+      );
+    }
+    return stars;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +42,7 @@ class MonumentDisplayWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
-                image: NetworkImage(monument.imageUrl),
+                image: CachedNetworkImageProvider(monument.imageUrl[0], ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -42,25 +58,37 @@ class MonumentDisplayWidget extends StatelessWidget {
                   color: Colors.white, borderRadius: BorderRadius.circular(15)),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    Text(
-                      monument.name,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      monument.location,
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          monument.name,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              monument.location,
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 110,
+                            ),
+                            Row(children: _createStars()),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),

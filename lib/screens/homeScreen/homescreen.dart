@@ -31,8 +31,9 @@ class HomeScreen extends StatelessWidget {
                     width: 15,
                   ),
                   Text(
-                    "Hey ${user!.displayName}!",
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    "Hey ${user!.displayName!.split(" ")[0]}!",
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   IconButton(
@@ -82,7 +83,9 @@ class HomeScreen extends StatelessWidget {
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: const CircularProgressIndicator(color: Colors.blue,),
+                          child: const CircularProgressIndicator(
+                            color: Colors.blue,
+                          ),
                         );
                       }
                       return ListView.builder(
@@ -99,8 +102,8 @@ class HomeScreen extends StatelessWidget {
                             monument: Monument(
                                 name: monumentList[index]["name"],
                                 id: monumentList[index]["id"],
-                                imageUrl:
-                                    monumentList[index]["imgUrl"][0].toString(),
+                                imageUrl: monumentList[index]["imgUrl"],
+                                stars: monumentList[index]["stars"],
                                 price: monumentList[index]["price"],
                                 location: monumentList[index]["location"],
                                 desc: monumentList[index]["desc"],
