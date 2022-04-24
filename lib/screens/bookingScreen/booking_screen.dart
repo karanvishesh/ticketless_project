@@ -235,7 +235,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                           validator: (text) {
                             if (text == null || text.isEmpty) {
-                              return 'Please Enter Item name';
+                              return 'Please Enter name';
                             }
                             return null;
                           },
@@ -258,9 +258,19 @@ class _BookingScreenState extends State<BookingScreen> {
                         ),
                         Row(
                           children: [
-                            const Text(
-                              'Number of Children :',
-                              style: const TextStyle(fontSize: 17),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Number of Children :',
+                                  style: const TextStyle(fontSize: 17),
+                                ),
+                                Text(
+                                  '(50 % off)',
+                                  style: const TextStyle(
+                                      fontSize: 17, color: Colors.green),
+                                ),
+                              ],
                             ),
                             const Spacer(),
                             ChildrenItemCounter(),
@@ -397,6 +407,76 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                 ],
               ),
+              IconButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            padding: const EdgeInsets.all(16.0),
+                            height: MediaQuery.of(context).size.height * 0.25,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Adult x ${countState.adult_count} :',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      '₹${widget.monument.price * countState.adult_count.toInt()}',
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Child x ${countState.child_count} :',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      '₹${(widget.monument.price / 2).toInt() * countState.child_count.toInt()}',
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Convinience fee :',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      '₹${((widget.monument.price * countState.adult_count.toInt()) + ((widget.monument.price) / 2 * countState.child_count.toInt())).toInt() * 0.045}',
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  icon: Icon(Icons.keyboard_arrow_down)),
               SizedBox(
                 width: 15,
               ),
